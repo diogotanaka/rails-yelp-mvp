@@ -1,0 +1,21 @@
+<ul>
+    <li>Name: <%= @restaurant.name %></li>
+    <li>Address: <%= @restaurant.address %></li>
+    <li>Category: <%= @restaurant.category %></li>
+    <li>Phone Number: <%= @restaurant.phone_number %>
+</ul>
+
+<h4>All reviews:</h4>
+<ul>
+    <% @restaurant.reviews.each do |review| %>
+    <li>Rating: <%= review.rating %> - <%= review.content%>       </li>
+    <% end %>
+<ul>
+
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.input :rating, collection: 0..5 %>
+  <%= f.input :content%>
+  <%= link_to "Show Restaurants", restaurants_path, class: "btn btn-primary" %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
+  <%= link_to "Delete", restaurant_path(@restaurant), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
